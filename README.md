@@ -1,2 +1,1 @@
-# sprintforge
 # sprintforge-planning
