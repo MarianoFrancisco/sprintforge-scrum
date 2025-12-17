@@ -8,7 +8,7 @@ spring:
   application:
     name: scrum
   datasource:
-    url: ${DB_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:sc_db}?sslmode=require}
+    url: ${DB_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:scrum_db}?sslmode=require}
     username: ${DB_USER:user}
     password: ${DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
