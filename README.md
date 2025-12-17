@@ -1,1 +1,1 @@
-# sprintforge-planning
+# sprintforge-scrum
