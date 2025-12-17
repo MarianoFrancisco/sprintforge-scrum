@@ -1,4 +1,4 @@
-package com.sprintforge.scrum.config.kafka;
+package com.sprintforge.scrum.common.infrastructure.config.kafka;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;

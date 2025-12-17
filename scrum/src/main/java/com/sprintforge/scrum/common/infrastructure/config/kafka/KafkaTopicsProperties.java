@@ -1,4 +1,4 @@
-package com.sprintforge.scrum.config.kafka;
+package com.sprintforge.scrum.common.infrastructure.config.kafka;
 
 import lombok.Getter;
 import lombok.Setter;
