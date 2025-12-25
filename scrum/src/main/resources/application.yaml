@@ -49,6 +49,9 @@ spring:
     groups:
       default-group: ${spring.kafka.consumer.group-id}
 
+urls:
+  employee: ${EMPLOYEE_URL:http://localhost:8002}
+
 logging:
   level:
     root: ${LOG_LEVEL_ROOT:INFO}
