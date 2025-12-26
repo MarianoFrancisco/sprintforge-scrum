@@ -2,7 +2,8 @@ package com.sprintforge.scrum.workitem.infrastructure.adapter.in.rest.controller
 
 import com.sprintforge.scrum.workitem.application.port.in.command.*;
 import com.sprintforge.scrum.workitem.application.port.in.query.GetAllWorkItems;
-import com.sprintforge.scrum.workitem.application.port.in.query.GetWorkItemById;
+import com.sprintforge.scrum.workitem.application.port.in.query.GetWorkItemResultById;
+import com.sprintforge.scrum.workitem.application.result.WorkItemResult;
 import com.sprintforge.scrum.workitem.domain.WorkItem;
 import com.sprintforge.scrum.workitem.infrastructure.adapter.in.rest.dto.*;
 import com.sprintforge.scrum.workitem.infrastructure.adapter.in.rest.mapper.WorkItemRestMapper;
@@ -22,7 +23,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 public class WorkItemController {
 
     private final GetAllWorkItems getAllWorkItems;
-    private final GetWorkItemById getWorkItemById;
+    private final GetWorkItemResultById getWorkItemResultById;
 
     private final CreateWorkItem createWorkItem;
     private final DeleteWorkItem deleteWorkItem;
@@ -72,11 +73,11 @@ public class WorkItemController {
     }
 
     @GetMapping("/{id}")
-    public WorkItemResponseDTO getById(@PathVariable UUID id) {
-        WorkItem workItem = getWorkItemById.handle(
+    public WorkItemResultResponseDTO getById(@PathVariable UUID id) {
+        WorkItemResult workItem = getWorkItemResultById.handle(
                 WorkItemRestMapper.toQuery(id)
         );
-        return WorkItemRestMapper.toResponse(workItem);
+        return WorkItemRestMapper.toResultResponse(workItem);
     }
 
     @PostMapping

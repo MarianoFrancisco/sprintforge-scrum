@@ -1,11 +1,13 @@
 package com.sprintforge.scrum.workitem.infrastructure.adapter.in.rest.mapper;
 
 import com.sprintforge.scrum.board.infrastructure.adapter.in.rest.mapper.BoardColumnRestMapper;
+import com.sprintforge.scrum.common.infrastructure.adapter.in.rest.mapper.EmployeeResultRestMapper;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.mapper.ProjectRestMapper;
 import com.sprintforge.scrum.sprint.infrastructure.adapter.in.rest.mapper.SprintRestMapper;
 import com.sprintforge.scrum.workitem.application.port.in.command.*;
 import com.sprintforge.scrum.workitem.application.port.in.query.GetAllWorkItemsQuery;
-import com.sprintforge.scrum.workitem.application.port.in.query.GetWorkItemByIdQuery;
+import com.sprintforge.scrum.workitem.application.port.in.query.GetWorkItemResultByIdQuery;
+import com.sprintforge.scrum.workitem.application.result.WorkItemResult;
 import com.sprintforge.scrum.workitem.domain.WorkItem;
 import com.sprintforge.scrum.workitem.infrastructure.adapter.in.rest.dto.*;
 import lombok.experimental.UtilityClass;
@@ -35,8 +37,8 @@ public class WorkItemRestMapper {
         );
     }
 
-    public GetWorkItemByIdQuery toQuery(UUID id) {
-        return new GetWorkItemByIdQuery(id);
+    public GetWorkItemResultByIdQuery toQuery(UUID id) {
+        return new GetWorkItemResultByIdQuery(id);
     }
 
     public CreateWorkItemCommand toCreateCommand(CreateWorkItemRequestDTO dto) {
@@ -75,6 +77,31 @@ public class WorkItemRestMapper {
                 ProjectRestMapper.toResponse(workItem.getProject()),
                 SprintRestMapper.toResponse(workItem.getSprint()),
                 BoardColumnRestMapper.toResponse(workItem.getBoardColumn())
+        );
+    }
+
+    public WorkItemResultResponseDTO toResultResponse(
+            WorkItemResult workItem
+    ) {
+        if (workItem == null) {
+            return null;
+        }
+        return new WorkItemResultResponseDTO(
+                workItem.id(),
+                workItem.position(),
+                workItem.title(),
+                workItem.description(),
+                workItem.acceptanceCriteria(),
+                workItem.storyPoints(),
+                workItem.priority(),
+                EmployeeResultRestMapper.toResponse(workItem.developer()),
+                EmployeeResultRestMapper.toResponse(workItem.productOwner()),
+                workItem.isDeleted(),
+                workItem.createdAt(),
+                workItem.updatedAt(),
+                ProjectRestMapper.toResponse(workItem.project()),
+                SprintRestMapper.toResponse(workItem.sprint()),
+                BoardColumnRestMapper.toResponse(workItem.boardColumn())
         );
     }
 
