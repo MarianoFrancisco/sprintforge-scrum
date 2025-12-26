@@ -1,14 +1,20 @@
 package com.sprintforge.scrum.project.infrastructure.adapter.in.rest.mapper;
 
+import com.sprintforge.scrum.common.infrastructure.adapter.in.rest.dto.EmployeeResultResponseDTO;
+import com.sprintforge.scrum.common.infrastructure.adapter.in.rest.mapper.EmployeeResultRestMapper;
 import com.sprintforge.scrum.project.application.port.in.command.*;
 import com.sprintforge.scrum.project.application.port.in.query.GetAllProjectsQuery;
-import com.sprintforge.scrum.project.application.port.in.query.GetProjectByIdQuery;
+import com.sprintforge.scrum.project.application.port.in.query.GetProjectResultByIdQuery;
+import com.sprintforge.scrum.project.application.port.result.ProjectResult;
 import com.sprintforge.scrum.project.domain.Project;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.dto.*;
 import lombok.experimental.UtilityClass;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+
+import static java.util.stream.Collectors.toSet;
 
 @UtilityClass
 public class ProjectRestMapper {
@@ -22,8 +28,8 @@ public class ProjectRestMapper {
         );
     }
 
-    public GetProjectByIdQuery toQuery(UUID id) {
-        return new GetProjectByIdQuery(id);
+    public GetProjectResultByIdQuery toQuery(UUID id) {
+        return new GetProjectResultByIdQuery(id);
     }
 
     public CreateProjectCommand toCreateCommand(CreateProjectRequestDTO dto) {
@@ -50,7 +56,7 @@ public class ProjectRestMapper {
 
         Set<ProjectEmployeeResponseDTO> assignments = project.getAssignments().stream()
                 .map(ProjectEmployeeRestMapper::toResponse)
-                .collect(java.util.stream.Collectors.toSet());
+                .collect(toSet());
 
         return new ProjectResponseDTO(
                 project.getId().value(),
@@ -66,6 +72,34 @@ public class ProjectRestMapper {
                 project.getCreatedAt(),
                 project.getUpdatedAt(),
                 assignments
+        );
+    }
+
+    public ProjectResultResponseDTO toResultResponse(
+            ProjectResult result
+    ) {
+        if (result == null) {
+            return null;
+        }
+
+        List<EmployeeResultResponseDTO> employees = result.employees().stream()
+                .map(EmployeeResultRestMapper::toResponse)
+                .toList();
+
+        return new ProjectResultResponseDTO(
+                result.id(),
+                result.projectKey(),
+                result.name(),
+                result.description(),
+                result.client(),
+                result.area(),
+                result.budgetAmount(),
+                result.contractAmount(),
+                result.isClosed(),
+                result.isDeleted(),
+                result.createdAt(),
+                result.updatedAt(),
+                employees
         );
     }
 
