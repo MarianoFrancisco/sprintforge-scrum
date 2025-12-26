@@ -2,7 +2,8 @@ package com.sprintforge.scrum.project.infrastructure.adapter.in.rest.controller;
 
 import com.sprintforge.scrum.project.application.port.in.command.*;
 import com.sprintforge.scrum.project.application.port.in.query.GetAllProjects;
-import com.sprintforge.scrum.project.application.port.in.query.GetProjectById;
+import com.sprintforge.scrum.project.application.port.in.query.GetProjectResultById;
+import com.sprintforge.scrum.project.application.port.result.ProjectResult;
 import com.sprintforge.scrum.project.domain.Project;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.dto.*;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.mapper.ProjectRestMapper;
@@ -22,7 +23,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 public class ProjectController {
 
     private final GetAllProjects getAllProjects;
-    private final GetProjectById getProjectById;
+    private final GetProjectResultById getProjectResultById;
     private final CreateProject createProject;
     private final UpdateProjectName updateProjectName;
     private final UpdateProjectDescription updateProjectDescription;
@@ -53,13 +54,13 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public ProjectResponseDTO getById(@PathVariable("id") UUID id) {
-        Project project = getProjectById.handle(
+    public ProjectResultResponseDTO getById(@PathVariable("id") UUID id) {
+        ProjectResult project = getProjectResultById.handle(
                 ProjectRestMapper.toQuery(
                         id
                 )
         );
-        return ProjectRestMapper.toResponse(project);
+        return ProjectRestMapper.toResultResponse(project);
     }
 
     @PostMapping
