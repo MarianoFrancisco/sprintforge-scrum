@@ -13,10 +13,10 @@ import java.util.UUID;
 @UtilityClass
 public class BoardColumnRestMapper {
     public GetAllBoardColumnsBySprintIdQuery toQuery(
-            UUID projectId,
+            UUID sprintId,
             String searchTerm
     ) {
-        return new GetAllBoardColumnsBySprintIdQuery(projectId, searchTerm);
+        return new GetAllBoardColumnsBySprintIdQuery(sprintId, searchTerm);
     }
 
     public GetBoardColumnByIdQuery toQueryById(UUID id) {

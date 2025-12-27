@@ -33,12 +33,12 @@ public class BoardColumnController {
 
     @GetMapping
     public List<BoardColumnResponseDTO> getAll(
-            @RequestParam UUID projectId,
+            @RequestParam UUID sprintId,
             @RequestParam(required = false) String searchTerm
     ) {
         List<BoardColumn> boardColumns = getAllBoardColumnsBySprintId.handle(
                 BoardColumnRestMapper.toQuery(
-                        projectId,
+                        sprintId,
                         searchTerm
                 )
         );

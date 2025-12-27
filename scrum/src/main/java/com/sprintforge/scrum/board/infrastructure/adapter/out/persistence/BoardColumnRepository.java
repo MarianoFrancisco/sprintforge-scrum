@@ -55,7 +55,7 @@ public class BoardColumnRepository implements
     @Override
     public List<BoardColumn> findAllBySprintId(GetAllBoardColumnsBySprintIdQuery query) {
         Specification<BoardColumnEntity> spec = BoardColumnSpecs.withFilters(
-                query.projectId(),
+                query.sprintId(),
                 query.searchTerm()
         );
 
