@@ -31,6 +31,7 @@ public class SprintRepository implements
     @Override
     public List<Sprint> findAll(GetAllSprintsQuery query) {
         Specification<SprintEntity> spec = SprintSpecs.withFilters(
+                query.projectId(),
                 query.searchTerm(),
                 query.status()
         );

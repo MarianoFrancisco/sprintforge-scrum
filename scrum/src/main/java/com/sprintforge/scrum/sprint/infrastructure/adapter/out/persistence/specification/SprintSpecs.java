@@ -2,10 +2,13 @@ package com.sprintforge.scrum.sprint.infrastructure.adapter.out.persistence.spec
 
 import com.sprintforge.scrum.sprint.domain.valueobject.SprintStatus;
 import com.sprintforge.scrum.sprint.infrastructure.adapter.out.persistence.entity.SprintEntity;
+import jakarta.validation.constraints.NotNull;
 import lombok.experimental.UtilityClass;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.jpa.domain.Specification;
+
+import java.util.UUID;
 
 import static java.util.Locale.ROOT;
 import static javax.xml.transform.OutputKeys.METHOD;
@@ -14,6 +17,13 @@ import static org.apache.commons.lang.StringUtils.isNotBlank;
 @NullMarked
 @UtilityClass
 public class SprintSpecs {
+
+    public Specification<SprintEntity> hasProject(@NotNull UUID projectId) {
+        return (root, query, cb) -> {
+            query.distinct(true);
+            return cb.equal(root.get("project").get("id"), projectId);
+        };
+    }
 
     public Specification<SprintEntity> nameOrGoalLike(String searchTerm) {
         String pattern = "%" + searchTerm.toLowerCase() + "%";
@@ -51,10 +61,13 @@ public class SprintSpecs {
     }
 
     public Specification<SprintEntity> withFilters(
+            @NotNull UUID projectId,
             @Nullable String searchTerm,
             @Nullable String status
     ) {
         Specification<SprintEntity> spec = (ignoredRoot, ignoredQuery, cb) -> cb.conjunction();
+
+        spec = spec.and(hasProject(projectId));
 
         spec = spec.and(notDeleted());
 
