@@ -32,6 +32,19 @@ spring:
       hibernate.format_sql: true
       hibernate.jdbc.lob.non_contextual_creation: true
 
+  kafka:
+    bootstrap-servers: ${KAFKA_HOST:localhost}:9092
+
+    consumer:
+      group-id: ${KAFKA_GROUP:scrum}
+      auto-offset-reset: latest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        spring.json.trusted.packages: "com.sprintforge.scrum.*"
+        spring.json.use.type.headers: false
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
@@ -45,6 +58,8 @@ spring:
       ack-mode: record
 
     topics:
+      project-created: ${KAFKA_TOPIC_PROJECT_CREATED:project.created}
+      payment-made: ${KAFKA_TOPIC_PAYMENT_MADE:payment.made}
 
     groups:
       default-group: ${spring.kafka.consumer.group-id}
