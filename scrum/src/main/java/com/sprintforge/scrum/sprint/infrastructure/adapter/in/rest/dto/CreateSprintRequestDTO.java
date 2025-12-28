@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 
-@END_AFTER_START(start = "startDate", end = "endDate", message = "endDate debe ser posterior a startDate")
+@END_AFTER_START(start = "startDate", end = "endDate", message = "La fecha de fin debe ser posterior a la fecha de inicio")
 public record CreateSprintRequestDTO(
         @NotNull(message = "El empleado que realiza la acción es obligatorio")
         UUID employeeId,

@@ -1,6 +1,6 @@
 package com.sprintforge.scrum.payment.infrastructure.adapter.in.rest.controller;
 
-import com.sprintforge.scrum.payment.application.port.in.command.CreatePayment;
+import com.sprintforge.scrum.payment.application.port.in.command.MakePayment;
 import com.sprintforge.scrum.payment.application.port.in.query.GetAllPayments;
 import com.sprintforge.scrum.payment.application.port.in.query.GetPaymentById;
 import com.sprintforge.scrum.payment.domain.Payment;
@@ -26,7 +26,7 @@ public class PaymentController {
 
     private final GetAllPayments getAllPayments;
     private final GetPaymentById getPaymentById;
-    private final CreatePayment createPayment;
+    private final MakePayment createPayment;
 
     @GetMapping
     public List<PaymentResponseDTO> getAll(

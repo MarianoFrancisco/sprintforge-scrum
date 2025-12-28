@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public record CreatePaymentCommand(
+public record MakePaymentCommand(
         UUID employeeId,
         UUID projectId,
         LocalDate date,
