@@ -32,11 +32,13 @@ public class SprintController {
 
     @GetMapping
     public List<SprintResponseDTO> getAll(
+            @RequestParam(required = true) UUID projectId,
             @RequestParam(required = false) String searchTerm,
             @RequestParam(required = false) String status
     ) {
         List<Sprint> sprints = getAllSprints.handle(
                 SprintRestMapper.toQuery(
+                        projectId,
                         searchTerm,
                         status
                 )

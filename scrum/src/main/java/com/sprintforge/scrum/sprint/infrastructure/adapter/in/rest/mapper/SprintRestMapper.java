@@ -12,8 +12,16 @@ import java.util.UUID;
 
 @UtilityClass
 public class SprintRestMapper {
-    public GetAllSprintsQuery toQuery(String searchTerm, String status) {
-        return new GetAllSprintsQuery(searchTerm, status);
+    public GetAllSprintsQuery toQuery(
+            UUID projectId,
+            String searchTerm,
+            String status
+    ) {
+        return new GetAllSprintsQuery(
+                projectId,
+                searchTerm,
+                status
+        );
     }
 
     public GetSprintByIdQuery toQueryById(UUID id) {
