@@ -48,7 +48,7 @@ public class ProjectRepository implements
     public List<Project> findAll(GetAllProjectsQuery query) {
         Specification<ProjectEntity> spec = ProjectSpecs.withFilters(
                 query.searchTerm(),
-                query.isActive()
+                query.isClosed()
         );
 
         return projectJpaRepository.findAll(spec)

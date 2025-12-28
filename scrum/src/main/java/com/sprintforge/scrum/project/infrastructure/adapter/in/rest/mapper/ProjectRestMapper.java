@@ -20,11 +20,11 @@ import static java.util.stream.Collectors.toSet;
 public class ProjectRestMapper {
     public GetAllProjectsQuery toQuery(
             String searchTerm,
-            Boolean isActive
+            Boolean isClosed
     ) {
         return new GetAllProjectsQuery(
                 searchTerm,
-                isActive
+                isClosed
         );
     }
 

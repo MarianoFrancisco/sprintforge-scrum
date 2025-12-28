@@ -40,12 +40,12 @@ public class ProjectController {
     @GetMapping
     public List<ProjectResponseDTO> getAll(
             @RequestParam(required = false) String searchTerm,
-            @RequestParam(required = false) Boolean isActive
+            @RequestParam(required = false) Boolean isClosed
     ) {
         List<Project> projects = getAllProjects.handle(
                 ProjectRestMapper.toQuery(
                         searchTerm,
-                        isActive
+                        isClosed
                 )
         );
         return projects.stream()

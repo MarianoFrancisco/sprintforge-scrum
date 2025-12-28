@@ -24,9 +24,9 @@ public class ProjectSpecs {
                 );
     }
 
-    public Specification<ProjectEntity> isActive(Boolean isActive) {
+    public Specification<ProjectEntity> isClosed(Boolean isClosed) {
         return (root, ignored, cb) ->
-                cb.equal(root.get("isActive"), isActive);
+                cb.equal(root.get("isClosed"), isClosed);
     }
 
     public Specification<ProjectEntity> notDeleted() {
@@ -36,7 +36,7 @@ public class ProjectSpecs {
 
     public Specification<ProjectEntity> withFilters(
             @Nullable String searchTerm,
-            @Nullable Boolean isActive
+            @Nullable Boolean isClosed
     ) {
         Specification<ProjectEntity> spec = (ignoredRoot, ignoredQuery, cb) -> cb.conjunction();
 
@@ -45,8 +45,8 @@ public class ProjectSpecs {
         if (isNotBlank(searchTerm)) {
             spec = spec.and(nameOrDescriptionOrClientOrAreaLike(searchTerm));
         }
-        if (isActive != null) {
-            spec = spec.and(isActive(isActive));
+        if (isClosed != null) {
+            spec = spec.and(isClosed(isClosed));
         }
 
         return spec;
