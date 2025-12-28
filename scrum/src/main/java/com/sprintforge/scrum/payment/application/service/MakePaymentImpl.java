@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
-public class CreatePaymentImpl implements CreatePayment {
+public class PaymentMadeImpl implements CreatePayment {
 
     private final GetProjectById getProjectById;
     private final SavePayment savePayment;
