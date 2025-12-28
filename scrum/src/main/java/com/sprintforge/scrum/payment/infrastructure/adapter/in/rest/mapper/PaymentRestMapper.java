@@ -1,6 +1,6 @@
 package com.sprintforge.scrum.payment.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.scrum.payment.application.port.in.command.CreatePaymentCommand;
+import com.sprintforge.scrum.payment.application.port.in.command.MakePaymentCommand;
 import com.sprintforge.scrum.payment.application.port.in.query.GetAllPaymentsQuery;
 import com.sprintforge.scrum.payment.application.port.in.query.GetPaymentByIdQuery;
 import com.sprintforge.scrum.payment.domain.Payment;
@@ -30,11 +30,11 @@ public class PaymentRestMapper {
         );
     }
 
-    public CreatePaymentCommand to(CreatePaymentRequestDTO dto) {
+    public MakePaymentCommand to(CreatePaymentRequestDTO dto) {
         if (dto == null) {
             return null;
         }
-        return new CreatePaymentCommand(
+        return new MakePaymentCommand(
                 dto.employeeId(),
                 dto.projectId(),
                 dto.date(),
