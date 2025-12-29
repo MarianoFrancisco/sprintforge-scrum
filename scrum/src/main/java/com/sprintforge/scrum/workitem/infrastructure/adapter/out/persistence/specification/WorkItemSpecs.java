@@ -28,8 +28,7 @@ public class WorkItemSpecs {
     }
 
     public Specification<WorkItemEntity> isBacklog() {
-        return (root, ignored, cb) ->
-                cb.isNull(root.get("sprint"));
+        return (root, ignored, cb) -> cb.conjunction();
     }
 
     public Specification<WorkItemEntity> hasBoardColumn(@NotNull UUID boardColumnId) {
