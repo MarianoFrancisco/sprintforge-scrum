@@ -10,8 +10,8 @@ public record MoveBoardColumnRequestDTO(
         @NotNull(message = "El empleado que realiza la acción es obligatorio")
         UUID employeeId,
 
-        @NotNull(message = "El sprint es obligatorio.")
-        UUID sprintId,
+        @NotNull(message = "No puede estar vacia la columna a mover.")
+        UUID columnId,
 
         @NotEmpty(message = "No puede estar vacia la nueva posición de columna.")
         @Valid

@@ -73,7 +73,7 @@ public class BoardColumnRestMapper {
 
         return new MoveBoardColumnCommand(
                 dto.employeeId(),
-                dto.sprintId(),
+                dto.columnId(),
                 dto.newPosition()
         );
     }
