@@ -36,8 +36,8 @@ public class BoardColumnMapper {
                 sprint
         );
 
-        if (isFinal) {
-            column.markAsFinal();
+        if (!isFinal) {
+            column.unmarkAsFinal();
         }
 
         return column;

@@ -32,7 +32,8 @@ public class BoardColumn {
     public BoardColumn(
             String name,
             int position,
-            Sprint sprint
+            Sprint sprint,
+
     ) {
         Instant now = now();
 
