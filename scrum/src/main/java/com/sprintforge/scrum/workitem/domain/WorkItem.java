@@ -184,7 +184,7 @@ public class WorkItem {
         if (sprint == null) {
             throw new ValidationException("No se puede mover a un sprint indefinido");
         }
-        if (this.boardColumn == null) {
+        if (boardColumn == null) {
             throw new ValidationException("No se puede mover a una columna indefinida dentro del sprint");
         }
         this.sprint = sprint;
