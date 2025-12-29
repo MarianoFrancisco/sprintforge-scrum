@@ -1,12 +1,12 @@
 package com.sprintforge.scrum.project.application.mapper;
 
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.ProjectProgressItem;
+import com.sprintforge.common.application.port.result.ProjectProgressReportResult;
+import com.sprintforge.common.application.port.result.SprintCurrent;
 import com.sprintforge.scrum.project.application.port.out.persistence.raw.ProjectProgressReportRaw;
 import com.sprintforge.scrum.project.application.port.out.persistence.raw.ProjectRawItem;
 import com.sprintforge.scrum.project.application.port.out.persistence.raw.StartedSprintRaw;
-import com.sprintforge.scrum.project.application.port.result.ProjectProgressItem;
-import com.sprintforge.scrum.project.application.port.result.ProjectProgressReportResult;
-import com.sprintforge.scrum.project.application.port.result.SprintCurrent;
 import lombok.experimental.UtilityClass;
 
 import java.util.*;

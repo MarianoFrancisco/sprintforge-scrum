@@ -1,6 +1,6 @@
 package com.sprintforge.scrum.common.infrastructure.adapter.out.rest.employee.mapper;
 
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import lombok.experimental.UtilityClass;
 

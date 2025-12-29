@@ -97,7 +97,7 @@ public class BoardColumnController {
         return BoardColumnRestMapper.toResponse(updated);
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
     public void delete(
             @PathVariable UUID id,

@@ -1,6 +1,6 @@
 package com.sprintforge.scrum.project.application.port.result;
 
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.EmployeeResult;
 
 import java.math.BigDecimal;
 import java.time.Instant;

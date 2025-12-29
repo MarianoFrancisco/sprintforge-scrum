@@ -1,6 +1,6 @@
 package com.sprintforge.scrum.common.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.infrastructure.adapter.in.rest.dto.EmployeeResultResponseDTO;
 import com.sprintforge.scrum.project.application.port.in.command.*;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.dto.*;

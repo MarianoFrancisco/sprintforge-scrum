@@ -1,7 +1,7 @@
 package com.sprintforge.scrum.workitem.application.result;
 
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.board.domain.BoardColumn;
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.project.domain.Project;
 import com.sprintforge.scrum.sprint.domain.Sprint;
 

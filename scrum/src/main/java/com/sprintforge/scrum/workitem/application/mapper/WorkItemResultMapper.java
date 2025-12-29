@@ -1,6 +1,6 @@
 package com.sprintforge.scrum.workitem.application.mapper;
 
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.workitem.application.result.WorkItemResult;
 import com.sprintforge.scrum.workitem.domain.WorkItem;
 import lombok.experimental.UtilityClass;
