@@ -47,7 +47,7 @@ public class WorkItemController {
 
     @GetMapping
     public List<WorkItemResponseDTO> getAll(
-            @RequestParam(required = false) UUID projectId,
+            @RequestParam UUID projectId,
             @RequestParam(required = false) UUID sprintId,
             @RequestParam(required = false) UUID boardColumnId,
             @RequestParam(required = false) Integer priority,
