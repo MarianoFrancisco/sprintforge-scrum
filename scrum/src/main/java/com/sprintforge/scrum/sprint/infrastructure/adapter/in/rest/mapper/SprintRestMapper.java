@@ -60,6 +60,33 @@ public class SprintRestMapper {
         );
     }
 
+    public StartSprintCommand toStartCommand(
+            UUID id,
+            StartSprintRequestDTO dto
+    ) {
+        if (dto == null) {
+            return null;
+        }
+        return new StartSprintCommand(
+                dto.employeeId(),
+                id
+        );
+    }
+
+    public CompleteSprintCommand toCompleteCommand(
+            UUID id,
+            CompleteSprintRequestDTO dto
+    ) {
+        if (dto == null) {
+            return null;
+        }
+        return new CompleteSprintCommand(
+                dto.employeeId(),
+                id,
+                dto.targetSprintId()
+        );
+    }
+
     public UpdateSprintNameCommand toUpdateNameCommand(
             UUID id,
             UpdateSprintNameRequestDTO dto
