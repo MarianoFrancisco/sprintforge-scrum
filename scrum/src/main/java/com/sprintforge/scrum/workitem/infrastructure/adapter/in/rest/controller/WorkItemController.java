@@ -89,7 +89,7 @@ public class WorkItemController {
         return WorkItemRestMapper.toResponse(created);
     }
 
-    @DeleteMapping("/{id}")
+    @PatchMapping("/{id}")
     @ResponseStatus(NO_CONTENT)
     public void delete(
             @PathVariable UUID id,

@@ -1,10 +1,14 @@
 package com.sprintforge.scrum.project.infrastructure.adapter.in.rest.mapper;
 
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.ProjectProgressItem;
+import com.sprintforge.common.application.port.result.ProjectProgressReportResult;
+import com.sprintforge.common.application.port.result.SprintCurrent;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.EmployeeDTO;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.ProjectProgressItemDTO;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.ProjectProgressReportResponseDTO;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.SprintCurrentDTO;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectProgressReportQuery;
-import com.sprintforge.scrum.project.application.port.result.ProjectProgressItem;
-import com.sprintforge.scrum.project.application.port.result.ProjectProgressReportResult;
-import com.sprintforge.scrum.project.application.port.result.SprintCurrent;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.dto.*;
 import lombok.experimental.UtilityClass;
 

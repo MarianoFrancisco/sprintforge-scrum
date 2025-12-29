@@ -1,6 +1,6 @@
 package com.sprintforge.scrum.common.application.port.out.rest.employee.query;
 
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.EmployeeResult;
 
 import java.util.List;
 

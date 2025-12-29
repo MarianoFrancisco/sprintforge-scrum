@@ -1,9 +1,9 @@
 package com.sprintforge.scrum.project.infrastructure.adapter.in.rest.controller;
 
+import com.sprintforge.common.application.port.result.ProjectProgressReportResult;
+import com.sprintforge.common.infrastructure.adapter.in.rest.dto.*;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectProgressReport;
-import com.sprintforge.scrum.project.application.port.result.ProjectProgressReportResult;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.dto.ProjectProgressReportRequestDTO;
-import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.dto.ProjectProgressReportResponseDTO;
 import com.sprintforge.scrum.project.infrastructure.adapter.in.rest.mapper.InternalProjectRestMapper;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

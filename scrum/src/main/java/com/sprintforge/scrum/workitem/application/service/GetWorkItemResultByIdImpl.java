@@ -1,8 +1,8 @@
 package com.sprintforge.scrum.workitem.application.service;
 
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIds;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIdsQuery;
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.workitem.application.exception.WorkItemNotFoundException;
 import com.sprintforge.scrum.workitem.application.mapper.WorkItemResultMapper;
 import com.sprintforge.scrum.workitem.application.port.in.query.GetWorkItemResultById;

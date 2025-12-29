@@ -1,14 +1,14 @@
 package com.sprintforge.scrum.project.application.service;
 
+import com.sprintforge.common.application.port.result.EmployeeResult;
+import com.sprintforge.common.application.port.result.ProjectProgressReportResult;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIds;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIdsQuery;
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.project.application.mapper.ProjectProgressReportMapper;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectProgressReport;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectProgressReportQuery;
 import com.sprintforge.scrum.project.application.port.out.persistence.LoadProjectProgressReportRaw;
 import com.sprintforge.scrum.project.application.port.out.persistence.raw.ProjectProgressReportRaw;
-import com.sprintforge.scrum.project.application.port.result.ProjectProgressReportResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

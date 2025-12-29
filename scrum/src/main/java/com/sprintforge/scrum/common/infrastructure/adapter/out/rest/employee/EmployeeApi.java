@@ -1,11 +1,11 @@
 package com.sprintforge.scrum.common.infrastructure.adapter.out.rest.employee;
 
 import com.sprintforge.common.application.exception.BusinessException;
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.command.ValidateEmployees;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.command.ValidateEmployeesCommand;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIds;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIdsQuery;
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.infrastructure.adapter.in.rest.dto.EmployeeResponseDTO;
 import com.sprintforge.scrum.common.infrastructure.adapter.out.rest.employee.dto.GetEmployeesByIdsRequestDTO;
 import com.sprintforge.scrum.common.infrastructure.adapter.out.rest.employee.mapper.EmployeeResultMapper;

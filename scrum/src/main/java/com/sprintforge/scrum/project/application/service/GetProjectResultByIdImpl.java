@@ -1,8 +1,8 @@
 package com.sprintforge.scrum.project.application.service;
 
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIds;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIdsQuery;
-import com.sprintforge.scrum.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.project.application.exception.ProjectNotFoundException;
 import com.sprintforge.scrum.project.application.mapper.ProjectResultMapper;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectResultById;
