@@ -24,6 +24,8 @@ public class SprintController {
     private final GetAllSprints getAllSprints;
     private final GetSprintById getSprintById;
     private final CreateSprint createSprint;
+    private final StartSprint startSprint;
+    private final CompleteSprint completeSprint;
     private final UpdateSprintName updateSprintName;
     private final UpdateSprintGoal updateSprintGoal;
     private final UpdateSprintDates updateSprintDates;
@@ -69,6 +71,32 @@ public class SprintController {
                 )
         );
         return SprintRestMapper.toResponse(sprint);
+    }
+
+    @PatchMapping("/{id}/start")
+    public SprintResponseDTO start(
+            @PathVariable UUID id,
+            @RequestBody @Valid StartSprintRequestDTO dto
+    ) {
+        Sprint started = startSprint.handle(
+                SprintRestMapper.toStartCommand(
+                        id,
+                        dto
+                ));
+        return SprintRestMapper.toResponse(started);
+    }
+
+    @PatchMapping("/{id}/complete")
+    public SprintResponseDTO complete(
+            @PathVariable UUID id,
+            @RequestBody @Valid CompleteSprintRequestDTO dto
+    ) {
+        Sprint completed = completeSprint.handle(
+                SprintRestMapper.toCompleteCommand(
+                        id,
+                        dto
+                ));
+        return SprintRestMapper.toResponse(completed);
     }
 
     @PatchMapping("/{id}/name")
