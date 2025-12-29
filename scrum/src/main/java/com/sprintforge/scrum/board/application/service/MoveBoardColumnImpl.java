@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
-
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -43,11 +42,18 @@ public class MoveBoardColumnImpl implements MoveBoardColumn {
 
         int lastPosition = last.getPosition().value();
 
-        if (newPosition > lastPosition) throw BoardColumnPositionOutOfRangeException.create();
+        if (newPosition > lastPosition) {
+            throw BoardColumnPositionOutOfRangeException.create();
+        }
 
         BoardColumn oldFinal = findBoardColumnBySprintIdAndIsFinalTrue
                 .findBySprintIdAndIsFinalTrue(sprintId)
                 .orElseThrow(() -> BoardColumnNotFoundException.finalColumnNotFound(sprintId));
+
+        int tempPosition = lastPosition + 1;
+
+        boardColumn.updatePosition(tempPosition);
+        saveBoardColumn.save(boardColumn);
 
         if (newPosition > oldPosition) {
             shiftBoardColumnPositions.shiftDown(sprintId, oldPosition, newPosition);
@@ -77,4 +83,3 @@ public class MoveBoardColumnImpl implements MoveBoardColumn {
         return boardColumn;
     }
 }
-
