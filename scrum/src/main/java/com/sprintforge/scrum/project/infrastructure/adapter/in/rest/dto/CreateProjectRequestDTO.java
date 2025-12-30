@@ -37,7 +37,6 @@ public record CreateProjectRequestDTO(
         @Digits(integer = 10, fraction = 2, message = "El monto del contrato puede tener como máximo 2 decimales")
         BigDecimal contractAmount,
 
-        @NotEmpty(message = "Debe asignar al menos un empleado")
-        Set<@NotNull(message = "El identificador del empleado no puede estar vacío") UUID> employeeIds
+        Set<UUID> employeeIds
 ) {
 }

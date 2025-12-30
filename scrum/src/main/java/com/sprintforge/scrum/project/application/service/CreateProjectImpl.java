@@ -29,6 +29,8 @@ public class CreateProjectImpl implements CreateProject {
 
     @Override
     public Project handle(CreateProjectCommand command) {
+        command.employeeIds().add(command.employeeId());
+
         if (existProjectByProjectKey.existsByProjectKey(command.projectKey())) {
             throw DuplicateProjectException.byProjectKey(command.projectKey());
         }
