@@ -1,10 +1,14 @@
 package com.sprintforge.scrum.project.application.port.out.event;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.UUID;
 
 public record ProjectCreatedIntegrationEvent(
-        UUID employeeId,
+        String entityType,
+        String eventType,
+        String message,
+        Instant occurredAt,
         UUID projectId,
         String projectKey,
         String name,
