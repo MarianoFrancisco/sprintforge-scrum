@@ -26,7 +26,7 @@ public class AssignWorkItemDeveloperImpl implements AssignWorkItemDeveloper {
 
     @Override
     public WorkItem handle(AssignWorkItemDeveloperCommand command) {
-        validateEmployees.validate(new ValidateEmployeesCommand(Set.of(command.id())));
+        validateEmployees.validate(new ValidateEmployeesCommand(Set.of(command.developerId())));
 
         WorkItem workItem = findWorkItemById.findById(command.id()).orElseThrow(
                 () -> WorkItemNotFoundException.byId(command.id())
