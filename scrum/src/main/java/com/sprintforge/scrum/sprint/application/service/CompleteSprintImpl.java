@@ -50,7 +50,6 @@ public class CompleteSprintImpl implements CompleteSprint {
         sprint.complete();
         Sprint savedSprint = saveSprint.save(sprint);
 
-
         EmployeeResult employee =
                 employeeQuerySupport.getEmployee(command.employeeId());
 

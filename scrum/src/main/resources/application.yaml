@@ -63,6 +63,7 @@ spring:
       sprint-created: ${KAFKA_TOPIC_SPRINT_CREATED:sprint.created}
       sprint-started: ${KAFKA_TOPIC_SPRINT_STARTED:sprint.started}
       sprint-completed: ${KAFKA_TOPIC_SPRINT_COMPLETED:sprint.completed}
+      sprint-deleted: ${KAFKA_TOPIC_SPRINT_DELETED:sprint.deleted}
 
     groups:
       default-group: ${spring.kafka.consumer.group-id}

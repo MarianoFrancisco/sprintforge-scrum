@@ -3,6 +3,7 @@ package com.sprintforge.scrum.sprint.application.mapper;
 import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.sprint.application.port.out.event.SprintCompletedIntegrationEvent;
 import com.sprintforge.scrum.sprint.application.port.out.event.SprintCreatedIntegrationEvent;
+import com.sprintforge.scrum.sprint.application.port.out.event.SprintDeletedIntegrationEvent;
 import com.sprintforge.scrum.sprint.application.port.out.event.SprintStartedIntegrationEvent;
 import com.sprintforge.scrum.sprint.domain.Sprint;
 import lombok.experimental.UtilityClass;
@@ -50,6 +51,20 @@ public class SprintIntegrationMapper {
                 ENTITY_TYPE,
                 "SPRINT_COMPLETED",
                 buildMessage(employee, "ha completado", sprint),
+                now(),
+                sprint.getProject().getId().value(),
+                sprint.getId().value()
+        );
+    }
+
+    public SprintDeletedIntegrationEvent sprintDeleted(
+            EmployeeResult employee,
+            Sprint sprint
+    ) {
+        return new SprintDeletedIntegrationEvent(
+                ENTITY_TYPE,
+                "SPRINT_DELETED",
+                buildMessage(employee, "ha eliminado", sprint),
                 now(),
                 sprint.getProject().getId().value(),
                 sprint.getId().value()

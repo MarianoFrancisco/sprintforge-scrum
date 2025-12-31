@@ -1,12 +1,10 @@
 package com.sprintforge.scrum.sprint.infrastructure.adapter.out.messaging.kafka;
 
 import com.sprintforge.scrum.common.infrastructure.config.kafka.KafkaTopicsProperties;
-import com.sprintforge.scrum.sprint.application.port.out.event.SprintCompletedIntegrationEvent;
-import com.sprintforge.scrum.sprint.application.port.out.event.SprintCreatedIntegrationEvent;
-import com.sprintforge.scrum.sprint.application.port.out.event.SprintEventPublisher;
-import com.sprintforge.scrum.sprint.application.port.out.event.SprintStartedIntegrationEvent;
+import com.sprintforge.scrum.sprint.application.port.out.event.*;
 import com.sprintforge.scrum.sprint.infrastructure.adapter.out.messaging.kafka.event.SprintCompletedKafkaMessage;
 import com.sprintforge.scrum.sprint.infrastructure.adapter.out.messaging.kafka.event.SprintCreatedKafkaMessage;
+import com.sprintforge.scrum.sprint.infrastructure.adapter.out.messaging.kafka.event.SprintDeletedKafkaMessage;
 import com.sprintforge.scrum.sprint.infrastructure.adapter.out.messaging.kafka.event.SprintStartedKafkaMessage;
 import com.sprintforge.scrum.sprint.infrastructure.adapter.out.messaging.kafka.mapper.SprintKafkaEventMapper;
 import lombok.RequiredArgsConstructor;
@@ -56,6 +54,16 @@ public class SprintKafkaEventPublisher implements
         kafkaTemplate.send(topic, key, message);
 
         log.debug("Published SprintCompleted event. topic={}, key={}", topic, key);
+    }
 
+    @Override
+    public void publishSprintDeleted(SprintDeletedIntegrationEvent event) {
+        SprintDeletedKafkaMessage message = SprintKafkaEventMapper.toMessage(event);
+        String topic = topics.getSprintStarted();
+        String key = message.sprintId().toString();
+
+        kafkaTemplate.send(topic, key, message);
+
+        log.debug("Published SprintDeleted event. topic={}, key={}", topic, key);
     }
 }
