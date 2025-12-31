@@ -24,7 +24,7 @@ public class InternalProjectController {
             @Valid @ModelAttribute ProjectProgressReportRequestDTO dto
     ) {
         ProjectProgressReportResult result =
-                getProjectProgressReport.getProjectProgressReport(
+                getProjectProgressReport.handle(
                         InternalProjectRestMapper.toQuery(dto)
                 );
 
