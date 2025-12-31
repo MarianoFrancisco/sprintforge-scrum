@@ -46,7 +46,7 @@ public class CreateSprintImpl implements CreateSprint {
                 employeeQuerySupport.getEmployee(command.employeeId());
 
         sprintEventPublisher.publishSprintCreated(
-                SprintIntegrationMapper.from(
+                SprintIntegrationMapper.sprintCreated(
                         employee,
                         savedSprint
                 )
