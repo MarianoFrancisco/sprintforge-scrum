@@ -2,8 +2,7 @@ package com.sprintforge.scrum.project.application.service;
 
 import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.common.application.port.result.ProjectProgressReportResult;
-import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIds;
-import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIdsQuery;
+import com.sprintforge.scrum.common.application.service.support.EmployeeQuerySupport;
 import com.sprintforge.scrum.project.application.mapper.ProjectProgressReportMapper;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectProgressReport;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectProgressReportQuery;
@@ -22,10 +21,10 @@ import java.util.stream.Collectors;
 public class GetProjectProgressReportImpl implements GetProjectProgressReport {
 
     private final LoadProjectProgressReportRaw loadProjectProgressReportRaw;
-    private final GetEmployeesByIds getEmployeesByIds;
+    private final EmployeeQuerySupport employeeQuerySupport;
 
     @Override
-    public ProjectProgressReportResult getProjectProgressReport(
+    public ProjectProgressReportResult handle(
             GetProjectProgressReportQuery query
     ) {
         ProjectProgressReportRaw raw =
@@ -35,13 +34,9 @@ public class GetProjectProgressReportImpl implements GetProjectProgressReport {
                 .flatMap(p -> p.memberEmployeeIds().stream())
                 .collect(Collectors.toSet());
 
-        Map<UUID, EmployeeResult> employeeById =
-                employeeIds.isEmpty()
-                        ? Map.of()
-                        : getEmployeesByIds
-                        .getByIds(new GetEmployeesByIdsQuery(employeeIds))
-                        .stream()
-                        .collect(Collectors.toMap(EmployeeResult::id, e -> e));
+        Map<UUID, EmployeeResult> employeeById = employeeQuerySupport.getEmployeeMap(
+                employeeIds
+        );
 
         return ProjectProgressReportMapper.toResult(raw, employeeById);
     }
