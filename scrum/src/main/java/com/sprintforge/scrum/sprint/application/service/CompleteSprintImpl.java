@@ -7,8 +7,6 @@ import com.sprintforge.scrum.sprint.application.mapper.SprintIntegrationMapper;
 import com.sprintforge.scrum.sprint.application.port.in.command.CompleteSprint;
 import com.sprintforge.scrum.sprint.application.port.in.command.CompleteSprintCommand;
 import com.sprintforge.scrum.sprint.application.port.out.event.SprintEventPublisher;
-import com.sprintforge.scrum.sprint.application.port.out.event.notification.EmailSprintCreatedIntegrationEvent;
-import com.sprintforge.scrum.sprint.application.port.out.event.notification.NotificationEventPublisher;
 import com.sprintforge.scrum.sprint.application.port.out.persistence.FindSprintById;
 import com.sprintforge.scrum.sprint.application.port.out.persistence.SaveSprint;
 import com.sprintforge.scrum.sprint.domain.Sprint;
@@ -29,7 +27,6 @@ public class CompleteSprintImpl implements CompleteSprint {
     private final SaveSprint saveSprint;
     private final EmployeeQuerySupport employeeQuerySupport;
     private final SprintEventPublisher sprintEventPublisher;
-    private final NotificationEventPublisher notificationEventPublisher;
 
     private final ReassignWorkItemsAfterSprintCompletion reassignWorkItemsAfterSprintCompletion;
 
@@ -60,14 +57,6 @@ public class CompleteSprintImpl implements CompleteSprint {
                 SprintIntegrationMapper.sprintCompleted(
                         employee,
                         savedSprint
-                )
-        );
-
-        notificationEventPublisher.publishEmailSprintCreated(
-                new EmailSprintCreatedIntegrationEvent(
-                        employee.email(),
-                        employee.fullName(),
-                        sprint.getName().value()
                 )
         );
         return savedSprint;
