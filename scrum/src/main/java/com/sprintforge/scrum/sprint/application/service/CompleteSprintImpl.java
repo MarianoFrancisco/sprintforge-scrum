@@ -1,8 +1,12 @@
 package com.sprintforge.scrum.sprint.application.service;
 
+import com.sprintforge.common.application.port.result.EmployeeResult;
+import com.sprintforge.scrum.common.application.service.support.EmployeeQuerySupport;
 import com.sprintforge.scrum.sprint.application.exception.SprintNotFoundException;
+import com.sprintforge.scrum.sprint.application.mapper.SprintIntegrationMapper;
 import com.sprintforge.scrum.sprint.application.port.in.command.CompleteSprint;
 import com.sprintforge.scrum.sprint.application.port.in.command.CompleteSprintCommand;
+import com.sprintforge.scrum.sprint.application.port.out.event.SprintEventPublisher;
 import com.sprintforge.scrum.sprint.application.port.out.persistence.FindSprintById;
 import com.sprintforge.scrum.sprint.application.port.out.persistence.SaveSprint;
 import com.sprintforge.scrum.sprint.domain.Sprint;
@@ -21,6 +25,8 @@ public class CompleteSprintImpl implements CompleteSprint {
 
     private final FindSprintById findSprintById;
     private final SaveSprint saveSprint;
+    private final EmployeeQuerySupport employeeQuerySupport;
+    private final SprintEventPublisher sprintEventPublisher;
 
     private final ReassignWorkItemsAfterSprintCompletion reassignWorkItemsAfterSprintCompletion;
 
@@ -42,6 +48,17 @@ public class CompleteSprintImpl implements CompleteSprint {
         );
 
         sprint.complete();
-        return saveSprint.save(sprint);
+        Sprint savedSprint = saveSprint.save(sprint);
+
+        EmployeeResult employee =
+                employeeQuerySupport.getEmployee(command.employeeId());
+
+        sprintEventPublisher.publishSprintCompleted(
+                SprintIntegrationMapper.sprintCompleted(
+                        employee,
+                        savedSprint
+                )
+        );
+        return savedSprint;
     }
 }
