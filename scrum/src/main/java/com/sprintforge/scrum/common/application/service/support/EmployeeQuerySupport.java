@@ -6,8 +6,10 @@ import com.sprintforge.common.application.port.result.EmployeeResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -19,5 +21,14 @@ public class EmployeeQuerySupport {
         return getEmployeesByIds
                 .getByIds(new GetEmployeesByIdsQuery(Set.of(employeeId)))
                 .getFirst();
+    }
+
+    public Map<UUID, EmployeeResult> getEmployeeMap(Set<UUID> employeeIds) {
+        return employeeIds.isEmpty()
+                ? Map.of()
+                : getEmployeesByIds
+                .getByIds(new GetEmployeesByIdsQuery(employeeIds))
+                .stream()
+                .collect(Collectors.toMap(EmployeeResult::id, e -> e));
     }
 }
