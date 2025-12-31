@@ -3,6 +3,7 @@ package com.sprintforge.scrum.workitem.application.mapper;
 import com.sprintforge.common.application.port.result.EmployeeProductivityItem;
 import com.sprintforge.common.application.port.result.EmployeeProductivityReportResult;
 import com.sprintforge.common.application.port.result.EmployeeResult;
+import com.sprintforge.scrum.common.application.service.support.WorkedHoursCalculator;
 import com.sprintforge.scrum.workitem.application.port.out.persistence.raw.EmployeeProductivityRawItem;
 import com.sprintforge.scrum.workitem.application.port.out.persistence.raw.EmployeeProductivityReportRaw;
 import lombok.experimental.UtilityClass;
@@ -17,9 +18,14 @@ public class EmployeeProductivityReportMapper {
 
     public EmployeeProductivityReportResult toResult(
             EmployeeProductivityReportRaw raw,
-            Map<UUID, EmployeeResult> employeeById
+            Map<UUID, EmployeeResult> employeeById,
+            WorkedHoursCalculator workedHoursCalculator
     ) {
-        List<EmployeeProductivityItem> employees = mapEmployees(raw.employees(), employeeById);
+        List<EmployeeProductivityItem> employees = mapEmployees(
+                raw.employees(),
+                employeeById,
+                workedHoursCalculator
+        );
 
         return new EmployeeProductivityReportResult(
                 raw.from(),
@@ -31,7 +37,8 @@ public class EmployeeProductivityReportMapper {
 
     private List<EmployeeProductivityItem> mapEmployees(
             List<EmployeeProductivityRawItem> raws,
-            Map<UUID, EmployeeResult> employeeById
+            Map<UUID, EmployeeResult> employeeById,
+            WorkedHoursCalculator workedHoursCalculator
     ) {
         if (raws == null || raws.isEmpty()) return List.of();
         if (employeeById == null || employeeById.isEmpty()) return List.of();
@@ -42,12 +49,17 @@ public class EmployeeProductivityReportMapper {
             EmployeeResult employee = employeeById.get(r.employeeId());
             if (employee == null) continue;
 
+            long investedHours = workedHoursCalculator.calculate(
+                    r.deliveredStoryPoints()
+            );
+
             items.add(new EmployeeProductivityItem(
                     employee,
                     r.workedStories(),
                     r.completedStories(),
                     r.pendingStories(),
-                    r.deliveredStoryPoints()
+                    r.deliveredStoryPoints(),
+                    investedHours
             ));
         }
 

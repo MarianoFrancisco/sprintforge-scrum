@@ -3,6 +3,7 @@ package com.sprintforge.scrum.workitem.application.service;
 import com.sprintforge.common.application.port.result.EmployeeProductivityReportResult;
 import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.application.service.support.EmployeeQuerySupport;
+import com.sprintforge.scrum.common.application.service.support.WorkedHoursCalculator;
 import com.sprintforge.scrum.workitem.application.mapper.EmployeeProductivityReportMapper;
 import com.sprintforge.scrum.workitem.application.port.in.query.GetEmployeeProductivityReport;
 import com.sprintforge.scrum.workitem.application.port.in.query.GetEmployeeProductivityReportQuery;
@@ -25,6 +26,7 @@ public class GetEmployeeProductivityReportImpl implements GetEmployeeProductivit
 
     private final LoadEmployeeProductivityReportRaw loadEmployeeProductivityReportRaw;
     private final EmployeeQuerySupport employeeQuerySupport;
+    private final WorkedHoursCalculator workedHoursCalculator;
 
     @Override
     public EmployeeProductivityReportResult handle(GetEmployeeProductivityReportQuery query) {
@@ -39,6 +41,10 @@ public class GetEmployeeProductivityReportImpl implements GetEmployeeProductivit
                 employeeIds
         );
 
-        return EmployeeProductivityReportMapper.toResult(raw, employeeById);
+        return EmployeeProductivityReportMapper.toResult(
+                raw,
+                employeeById,
+                workedHoursCalculator
+        );
     }
 }
