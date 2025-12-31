@@ -12,6 +12,8 @@ import com.sprintforge.scrum.sprint.application.mapper.SprintMapper;
 import com.sprintforge.scrum.sprint.application.port.in.command.CreateSprint;
 import com.sprintforge.scrum.sprint.application.port.in.command.CreateSprintCommand;
 import com.sprintforge.scrum.sprint.application.port.out.event.SprintEventPublisher;
+import com.sprintforge.scrum.sprint.application.port.out.event.notification.EmailSprintCreatedIntegrationEvent;
+import com.sprintforge.scrum.sprint.application.port.out.event.notification.NotificationEventPublisher;
 import com.sprintforge.scrum.sprint.application.port.out.persistence.SaveSprint;
 import com.sprintforge.scrum.sprint.domain.Sprint;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +30,7 @@ public class CreateSprintImpl implements CreateSprint {
     private final InitializeBoardColumns initializeBoardColumns;
     private final EmployeeQuerySupport employeeQuerySupport;
     private final SprintEventPublisher sprintEventPublisher;
+    private final NotificationEventPublisher notificationEventPublisher;
 
     @Override
     public Sprint handle(CreateSprintCommand command) {
@@ -37,7 +40,6 @@ public class CreateSprintImpl implements CreateSprint {
 
         Sprint sprint = SprintMapper.toDomain(command, project);
         Sprint savedSprint = saveSprint.save(sprint);
-
         initializeBoardColumns.handle(
                 new InitializeBoardColumnsCommand(savedSprint.getId().value())
         );
@@ -51,6 +53,25 @@ public class CreateSprintImpl implements CreateSprint {
                         savedSprint
                 )
         );
+        this.processNotification(sprint);
         return savedSprint;
+    }
+
+    public void processNotification(Sprint sprint) {
+        sprint.getProject().getAssignments().stream().map(
+                assignment -> employeeQuerySupport.getEmployee(assignment.getEmployeeId().value())
+        ).forEach(
+                employee -> sendEmailSprintCreatedNotification(employee, sprint)
+        );
+    }
+
+    public void sendEmailSprintCreatedNotification(EmployeeResult employee, Sprint sprint) {
+        notificationEventPublisher.publishEmailSprintCreated(
+                new EmailSprintCreatedIntegrationEvent(
+                        employee.email(),
+                        employee.fullName(),
+                        sprint.getName().value()
+                )
+        );
     }
 }
