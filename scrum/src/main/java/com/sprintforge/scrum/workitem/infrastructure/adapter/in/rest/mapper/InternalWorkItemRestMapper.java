@@ -52,7 +52,8 @@ public class InternalWorkItemRestMapper {
                 e.workedStories(),
                 e.completedStories(),
                 e.pendingStories(),
-                e.deliveredStoryPoints()
+                e.deliveredStoryPoints(),
+                e.hoursWorked()
         );
     }
 
