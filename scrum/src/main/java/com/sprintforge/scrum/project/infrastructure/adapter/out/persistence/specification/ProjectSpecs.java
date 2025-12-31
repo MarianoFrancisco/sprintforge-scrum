@@ -1,12 +1,18 @@
 package com.sprintforge.scrum.project.infrastructure.adapter.out.persistence.specification;
 
+import com.sprintforge.scrum.project.infrastructure.adapter.out.persistence.entity.ProjectEmployeeEntity;
 import com.sprintforge.scrum.project.infrastructure.adapter.out.persistence.entity.ProjectEntity;
+
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import lombok.experimental.UtilityClass;
 import org.jspecify.annotations.NullMarked;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.jpa.domain.Specification;
 
 import static org.apache.commons.lang.StringUtils.isNotBlank;
+
+import java.util.UUID;
 
 @NullMarked
 @UtilityClass
@@ -33,6 +39,14 @@ public class ProjectSpecs {
         return (root, ignored, cb) ->
                 cb.isFalse(root.get("isDeleted"));
     }
+
+    public static Specification<ProjectEntity> hasEmployee(UUID employeeId) {
+    return (root, query, cb) -> {
+        Join<ProjectEntity, ProjectEmployeeEntity> employeesJoin = root.join("employees", JoinType.INNER);
+        
+        return cb.equal(employeesJoin.get("id").get("employeeId"), employeeId);
+    };
+}
 
     public Specification<ProjectEntity> withFilters(
             @Nullable String searchTerm,
