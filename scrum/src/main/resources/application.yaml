@@ -60,6 +60,7 @@ spring:
     topics:
       project-created: ${KAFKA_TOPIC_PROJECT_CREATED:project.created}
       payment-made: ${KAFKA_TOPIC_PAYMENT_MADE:payment.made}
+      sprint-created: ${KAFKA_TOPIC_SPRINT_CREATED:sprint.created}
 
     groups:
       default-group: ${spring.kafka.consumer.group-id}
