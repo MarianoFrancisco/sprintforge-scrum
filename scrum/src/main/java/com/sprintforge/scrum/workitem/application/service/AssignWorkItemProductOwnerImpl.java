@@ -26,7 +26,7 @@ public class AssignWorkItemProductOwnerImpl implements AssignWorkItemProductOwne
 
     @Override
     public WorkItem handle(AssignWorkItemProductOwnerCommand command) {
-        validateEmployees.validate(new ValidateEmployeesCommand(Set.of(command.id())));
+        validateEmployees.validate(new ValidateEmployeesCommand(Set.of(command.productOwnerId())));
 
         WorkItem workItem = findWorkItemById.findById(command.id()).orElseThrow(
                 () -> WorkItemNotFoundException.byId(command.id())
