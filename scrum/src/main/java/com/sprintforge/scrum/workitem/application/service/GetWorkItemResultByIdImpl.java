@@ -35,10 +35,15 @@ public class GetWorkItemResultByIdImpl implements GetWorkItemResultById {
         Set<UUID> employeeIds = new HashSet<>();
 
         if (workItem.getDeveloperId() != null) {
-            employeeIds.add(workItem.getDeveloperId().value());
+            if (workItem.getDeveloperId().value() != null) {
+                employeeIds.add(workItem.getDeveloperId().value());
+
+            }
         }
         if (workItem.getProductOwnerId() != null) {
-            employeeIds.add(workItem.getProductOwnerId().value());
+            if (workItem.getProductOwnerId().value() != null) {
+                employeeIds.add(workItem.getProductOwnerId().value());
+            }
         }
 
         List<EmployeeResult> employees = employeeIds.isEmpty()
