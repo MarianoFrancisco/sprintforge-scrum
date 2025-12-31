@@ -1,7 +1,11 @@
 package com.sprintforge.scrum.project.application.service;
 
+import com.sprintforge.common.application.port.result.EmployeeResult;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.command.ValidateEmployees;
 import com.sprintforge.scrum.common.application.port.out.rest.employee.command.ValidateEmployeesCommand;
+import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIds;
+import com.sprintforge.scrum.common.application.port.out.rest.employee.query.GetEmployeesByIdsQuery;
+import com.sprintforge.scrum.common.application.service.support.EmployeeQuerySupport;
 import com.sprintforge.scrum.project.application.exception.DuplicateProjectException;
 import com.sprintforge.scrum.project.application.mapper.ProjectIntegrationMapper;
 import com.sprintforge.scrum.project.application.mapper.ProjectMapper;
@@ -16,12 +20,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(rollbackFor = Exception.class)
 public class CreateProjectImpl implements CreateProject {
 
     private final ValidateEmployees validateEmployees;
+    private final EmployeeQuerySupport employeeQuerySupport;
     private final ExistProjectByProjectKey existProjectByProjectKey;
     private final ExistProjectByName existProjectByName;
     private final SaveProject saveProject;
@@ -38,6 +45,8 @@ public class CreateProjectImpl implements CreateProject {
             throw DuplicateProjectException.byName(command.name());
         }
         validateEmployees.validate(new ValidateEmployeesCommand(command.employeeIds()));
+        EmployeeResult employee =
+                employeeQuerySupport.getEmployee(command.employeeId());
 
         Project project = ProjectMapper.toDomain(
                 command
@@ -46,7 +55,7 @@ public class CreateProjectImpl implements CreateProject {
 
         projectEventPublisher.publishProjectCreated(
                 ProjectIntegrationMapper.from(
-                        command.employeeId(),
+                        employee,
                         savedProject
                 )
         );

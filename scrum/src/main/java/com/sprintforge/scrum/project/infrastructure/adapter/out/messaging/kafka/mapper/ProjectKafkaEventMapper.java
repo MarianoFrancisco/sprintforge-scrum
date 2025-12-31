@@ -9,7 +9,10 @@ public class ProjectKafkaEventMapper {
 
     public ProjectCreatedKafkaMessage toMessage(ProjectCreatedIntegrationEvent event) {
         return new ProjectCreatedKafkaMessage(
-                event.employeeId(),
+                event.entityType(),
+                event.eventType(),
+                event.message(),
+                event.occurredAt(),
                 event.projectId(),
                 event.projectKey(),
                 event.name(),
