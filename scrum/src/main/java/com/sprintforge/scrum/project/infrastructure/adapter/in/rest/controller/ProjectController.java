@@ -1,6 +1,7 @@
 package com.sprintforge.scrum.project.infrastructure.adapter.in.rest.controller;
 
 import com.sprintforge.scrum.project.application.port.in.command.*;
+import com.sprintforge.scrum.project.application.port.in.query.GetActiveProjectsByEmployeeId;
 import com.sprintforge.scrum.project.application.port.in.query.GetAllProjects;
 import com.sprintforge.scrum.project.application.port.in.query.GetProjectResultById;
 import com.sprintforge.scrum.project.application.port.result.ProjectResult;
@@ -24,6 +25,7 @@ public class ProjectController {
 
     private final GetAllProjects getAllProjects;
     private final GetProjectResultById getProjectResultById;
+    private final GetActiveProjectsByEmployeeId getActiveProjectsByEmployeeId;
     private final CreateProject createProject;
     private final UpdateProjectName updateProjectName;
     private final UpdateProjectDescription updateProjectDescription;
@@ -61,6 +63,14 @@ public class ProjectController {
                 )
         );
         return ProjectRestMapper.toResultResponse(project);
+    }
+
+    @GetMapping("/employee/{id}")
+    public List<ProjectResponseDTO> getActiveByEmployeeId(@PathVariable UUID id) {
+        List<Project> projects = getActiveProjectsByEmployeeId.handle(id);
+        return projects.stream()
+                .map(ProjectRestMapper::toResponse)
+                .toList();
     }
 
     @PostMapping

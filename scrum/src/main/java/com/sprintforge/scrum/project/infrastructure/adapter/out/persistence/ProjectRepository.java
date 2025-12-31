@@ -25,6 +25,7 @@ public class ProjectRepository implements
         ExistsProjectByNameAndIdNot,
         FindAllProjects,
         FindProjectById,
+        FindActiveProjectsByEmployeeId,
         SaveProject {
 
     private final ProjectJpaRepository projectJpaRepository;
@@ -70,5 +71,18 @@ public class ProjectRepository implements
         ProjectEntity entity = ProjectEntityMapper.toEntity(project, existing);
         ProjectEntity saved = projectJpaRepository.save(entity);
         return ProjectEntityMapper.toDomain(saved);
+    }
+
+    @Override
+    public List<Project> findActiveByEmployeeId(UUID employeeId) {
+  Specification<ProjectEntity> spec = Specification
+            .where(ProjectSpecs.hasEmployee(employeeId))
+            .and(ProjectSpecs.isClosed(false))  // Proyectos NO cerrados
+            .and(ProjectSpecs.notDeleted());     // Proyectos NO eliminados
+    
+    return projectJpaRepository.findAll(spec)
+                    .stream()
+                .map(ProjectEntityMapper::toDomain)
+                .toList();
     }
 }
