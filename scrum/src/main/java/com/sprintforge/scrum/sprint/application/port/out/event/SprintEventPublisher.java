@@ -4,4 +4,6 @@ public interface SprintEventPublisher {
     void publishSprintCreated(SprintCreatedIntegrationEvent event);
 
     void publishSprintStarted(SprintStartedIntegrationEvent event);
+
+    void publishSprintCompleted(SprintCompletedIntegrationEvent event);
 }

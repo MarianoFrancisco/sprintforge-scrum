@@ -1,6 +1,7 @@
 package com.sprintforge.scrum.sprint.application.mapper;
 
 import com.sprintforge.common.application.port.result.EmployeeResult;
+import com.sprintforge.scrum.sprint.application.port.out.event.SprintCompletedIntegrationEvent;
 import com.sprintforge.scrum.sprint.application.port.out.event.SprintCreatedIntegrationEvent;
 import com.sprintforge.scrum.sprint.application.port.out.event.SprintStartedIntegrationEvent;
 import com.sprintforge.scrum.sprint.domain.Sprint;
@@ -11,15 +12,19 @@ import static java.time.Instant.now;
 @UtilityClass
 public class SprintIntegrationMapper {
 
+    private final String ENTITY_TYPE = "SPRINT";
+
     public SprintCreatedIntegrationEvent sprintCreated(
             EmployeeResult employee,
             Sprint sprint
     ) {
-        return buildCreatedEvent(
-                employee,
-                sprint,
+        return new SprintCreatedIntegrationEvent(
+                ENTITY_TYPE,
                 "SPRINT_CREATED",
-                "ha creado"
+                buildMessage(employee, "ha creado", sprint),
+                now(),
+                sprint.getProject().getId().value(),
+                sprint.getId().value()
         );
     }
 
@@ -27,48 +32,24 @@ public class SprintIntegrationMapper {
             EmployeeResult employee,
             Sprint sprint
     ) {
-        return buildStartedEvent(
-                employee,
-                sprint,
+        return new SprintStartedIntegrationEvent(
+                ENTITY_TYPE,
                 "SPRINT_STARTED",
-                "ha iniciado"
-        );
-    }
-
-    private SprintCreatedIntegrationEvent buildCreatedEvent(
-            EmployeeResult employee,
-            Sprint sprint,
-            String eventType,
-            String action
-    ) {
-        if (employee == null || sprint == null) {
-            return null;
-        }
-
-        return new SprintCreatedIntegrationEvent(
-                "SPRINT",
-                eventType,
-                buildMessage(employee, action, sprint),
+                buildMessage(employee, "ha iniciado", sprint),
                 now(),
                 sprint.getProject().getId().value(),
                 sprint.getId().value()
         );
     }
 
-    private SprintStartedIntegrationEvent buildStartedEvent(
+    public SprintCompletedIntegrationEvent sprintCompleted(
             EmployeeResult employee,
-            Sprint sprint,
-            String eventType,
-            String action
+            Sprint sprint
     ) {
-        if (employee == null || sprint == null) {
-            return null;
-        }
-
-        return new SprintStartedIntegrationEvent(
-                "SPRINT",
-                eventType,
-                buildMessage(employee, action, sprint),
+        return new SprintCompletedIntegrationEvent(
+                ENTITY_TYPE,
+                "SPRINT_COMPLETED",
+                buildMessage(employee, "ha completado", sprint),
                 now(),
                 sprint.getProject().getId().value(),
                 sprint.getId().value()

@@ -62,6 +62,7 @@ spring:
       payment-made: ${KAFKA_TOPIC_PAYMENT_MADE:payment.made}
       sprint-created: ${KAFKA_TOPIC_SPRINT_CREATED:sprint.created}
       sprint-started: ${KAFKA_TOPIC_SPRINT_STARTED:sprint.started}
+      sprint-completed: ${KAFKA_TOPIC_SPRINT_COMPLETED:sprint.completed}
 
     groups:
       default-group: ${spring.kafka.consumer.group-id}
